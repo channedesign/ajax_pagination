@@ -35,7 +35,7 @@ jQuery(document).ready(function () {
       var missing = "";
       if (!History) missing += "\nHistory.js not installed";
       if (!minVersion('<%= minjQuery %>')) missing += "\njQuery version <%= minjQuery %>+ not installed. Currently installed: jQuery " + window.jQuery.fn.jquery;
-<!--       alert("AJAX Pagination MISSING_DEPENDENCIES:" + missing); -->
+      alert("AJAX Pagination MISSING_DEPENDENCIES:" + missing);
     }
   <% end %>
   (function( $ ) { // on document ready
@@ -67,7 +67,7 @@ jQuery(document).ready(function () {
       var history_state = {ajax_pagination_set:true}; // current history state
 
       function display_pagination_loader(section_id) {
-        var ajax_section = getSection(section_id);
+<!--         var ajax_section = getSection(section_id);
         if (pagination_loader_state[section_id] === undefined) { // show loader if not already shown
           // get the ajax_loadzone DOM element
           var ajax_loadzone;
@@ -79,15 +79,15 @@ jQuery(document).ready(function () {
             // setup loading look
             var img = document.createElement("IMG");
             if (ajax_section.data("pagination") !== undefined && ajax_section.data("pagination").image !== undefined) img.src = ajax_section.data("pagination").image;
-            else img.src = "<%= asset_path AjaxPagination.loading_image %>";
+            else img.src = "<%# asset_path AjaxPagination.loading_image %>";
             var margin = Math.round(height>400?50:(height/8));
-<!--             $(img).addClass('ajaxpagination-loader'); -->
-<!--             var div = document.createElement("DIV"); -->
-<!--             $(div).addClass('ajaxpagination-loadzone'); -->
-<!--             $(div).append("<div class=\"margin-top\" />").append(img); -->
+            $(img).addClass('ajaxpagination-loader');
+            var div = document.createElement("DIV");
+            $(div).addClass('ajaxpagination-loadzone');
+            $(div).append("<div class=\"margin-top\" />").append(img);
             ajax_loadzone.wrapInner("<div class=\"ajaxpagination-oldcontent\" />");
             ajax_loadzone.append(div);
-          }
+          } -->
         }
         if ($.rails.fire(getSection(section_id),"ajaxp:focus")) {
           // scroll to top of ajax_section if it is not visible
@@ -192,7 +192,7 @@ jQuery(document).ready(function () {
           if (content.length>0) {
             content = content.html();
             <% if AjaxPagination.warnings %>
-              alert("AJAX Pagination EXTRA_CONTENT_DISCARDED:\nExtra content returned by AJAX request ignored. Only a portion of the page content returned by the server was required. To fix this, explicitly call ajax_respond :section_id => \"" + section_id + "\" to render only the partial view required. This warning can be turned off in the ajax_pagination initializer file.");
+<!--               alert("AJAX Pagination EXTRA_CONTENT_DISCARDED:\nExtra content returned by AJAX request ignored. Only a portion of the page content returned by the server was required. To fix this, explicitly call ajax_respond :section_id => \"" + section_id + "\" to render only the partial view required. This warning can be turned off in the ajax_pagination initializer file."); -->
             <% end %>
           }
           else { // otherwise use all the content, including any scripts - we consider scripts specifically returned in the partial probably should be re-run
